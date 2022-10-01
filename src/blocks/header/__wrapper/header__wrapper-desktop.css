@@ -1,9 +1,0 @@
-.header__wrapper-desktop {
-    display: none;
-}
-
-@media (min-width: 500px) {
-    .header__wrapper-desktop {
-        display: flex;
-    }  
-}

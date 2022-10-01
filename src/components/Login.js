@@ -18,7 +18,7 @@ const Login = ({ handleLogin, isLoading }) => {
     <div className="auth">
       <form className="auth__form" onSubmit={handleSubmit}>
         <div className="auth__wrapper">
-          <h2 className="auth__title">Sign in</h2>
+          <h2 className="auth__title">Log in</h2>
           <input
             type="email"
             name="email"

@@ -11,12 +11,11 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import * as auth from "../utils/auth";
-import Login from './Login';
-import Register from './Register';
-import ProtectedRoute from './ProtectedRoute';
-import InfoTooltip from './InfoTooltip';
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
-
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -38,9 +37,9 @@ function App() {
   const [userData, setUserData] = useState({});
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const [isSuccess, setIsSuccess] = useState(true);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState('');
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState("");
   //const [email, setEmail] = useState('');
- 
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -60,19 +59,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      auth.checkToken(jwt)
+      auth
+        .checkToken(jwt)
         .then((res) => {
           if (res.data._id) {
             setIsLoggedIn(false);
             setUserData({ email: res.data.email });
-            history.push('/main');
+            history.push("/main");
           }
         })
         .catch((err) => {
           console.log(err);
-          history.push('/signin');
+          history.push("/signin");
         })
         .finally(() => {
           setIsCheckingToken(false);
@@ -84,9 +84,9 @@ function App() {
 
   function SignOut() {
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
-    setUserData('');
-    history.push('/signin');
+    localStorage.removeItem("jwt");
+    setUserData("");
+    history.push("/signin");
   }
 
   function closeAllPopups() {
@@ -157,21 +157,22 @@ function App() {
       .catch(console.log)
       .finally(() => {
         setIsLoading(false);
-      })
+      });
   };
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
     if (isLiked) {
-      api.removeLike(card._id)
-      .then((unlikedCard) => {
-        const newCards = cards.map((card) => {
-          return card._id === unlikedCard._id ? unlikedCard : card;
-        });
-        setCards(newCards);
-      })
-      .catch(console.log)
+      api
+        .removeLike(card._id)
+        .then((unlikedCard) => {
+          const newCards = cards.map((card) => {
+            return card._id === unlikedCard._id ? unlikedCard : card;
+          });
+          setCards(newCards);
+        })
+        .catch(console.log);
     } else {
       api
         .addLike(card._id, !isLiked)
@@ -182,7 +183,7 @@ function App() {
           });
           setCards(newCards);
         })
-        .catch(console.log)
+        .catch(console.log);
     }
   };
 
@@ -234,20 +235,20 @@ function App() {
       .then((res) => {
         setIsInfoTooltipOpen(true);
         if (res._id) {
-          setIsSuccess('successful');
+          setIsSuccess("successful");
           // setTimeout(() => {
-            
-            setIsInfoTooltipOpen(true);
-            history.push('/signin');
+
+          setIsInfoTooltipOpen(true);
+          history.push("/signin");
           // }, 3000)
         } else {
-          setIsSuccess('unsuccessful');
+          setIsSuccess("unsuccessful");
           setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
         console.log(err);
-        setIsSuccess('unsuccessful');
+        setIsSuccess("unsuccessful");
         setIsInfoTooltipOpen(true);
       })
       .finally(() => {
@@ -264,15 +265,15 @@ function App() {
         if (res.token) {
           setIsLoggedIn(true);
           setUserData({ email });
-          localStorage.setItem('jwt', res.token);
-          history.push('/');
+          localStorage.setItem("jwt", res.token);
+          history.push("/");
         } else {
-          setIsSuccess('unsuccessful');
-          setIsInfoTooltipOpen(true); 
+          setIsSuccess("unsuccessful");
+          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
-        setIsSuccess('unsuccessful');
+        setIsSuccess("unsuccessful");
         setIsInfoTooltipOpen(true);
       })
       .finally(() => {
@@ -285,13 +286,13 @@ function App() {
   //   if (isLoggedIn) {
   //     return
   //   }
-    
+
   //     api.getUserInfo()
   //     .then(res => {
   //       setCurrentUser(res);
   //     })
   //       .catch(() => console.log("something went wrong"));
-    
+
   //   api
   //     .getCardsList()
   //     .then(data => {
@@ -299,50 +300,45 @@ function App() {
   //     })
   //     .catch(() => console.log("something went wrong"));
   // }, [isLoggedIn]);
-  
-  
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header 
-        isLoggedIn={isLoggedIn}
-        email={userData.email}
-        SignOut={SignOut}
-        path="/signup"
+        <Header
+          isLoggedIn={isLoggedIn}
+          email={userData.email}
+          SignOut={SignOut}
+          path="/signup"
         />
         <Switch>
           <ProtectedRoute
             exact
-            path='/main'
+            path="/main"
             isLoggedIn={isLoggedIn}
             isCheckingToken={isCheckingToken}
           >
-        <Main
-          onEditAvatarClick={handleEditAvatarClick}
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          handleDeleteClick={handleDeleteClick}
-        />
-        </ProtectedRoute>
+            <Main
+              onEditAvatarClick={handleEditAvatarClick}
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              handleDeleteClick={handleDeleteClick}
+            />
+          </ProtectedRoute>
 
-          <Route path='/signup'>
+          <Route path="/signup">
             <Register handleRegister={handleRegister} />
           </Route>
 
-          <Route path='/signin'>
+          <Route path="/signin">
             <Login handleLogin={handleLogin} isLoading={isLoading} />
           </Route>
 
           <Route>
-            {isLoggedIn ? (
-              <Redirect to='/main' />
-            ) : (
-              <Redirect to='/signin' />
-            )}
+            {isLoggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
 
@@ -385,7 +381,7 @@ function App() {
           onClose={closeAllPopups}
           isSuccess={isSuccess}
         />
-        
+
         <Footer />
       </div>
     </CurrentUserContext.Provider>

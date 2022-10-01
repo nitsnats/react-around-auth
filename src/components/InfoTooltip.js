@@ -13,17 +13,17 @@ const InfoToolTip = ({ isOpen, onClose, isSuccess }) => {
       <div className="popup__item popup__item-tooltip">
         <button
           type="button"
-          className="popup__close popup__close_tooltip"
+          className="popup__close popup__close-tooltip"
           name="close"
           onClick={onClose}
         ></button>
         {isSuccess === "unsuccessful" ? (
-          <div>
+          <div className="popup__container">
             <img className="popup__icon" src={successIcon} alt="Success Icon" />
             <p className="popup__status-message">{successful}</p>
           </div>
         ) : (
-          <div>
+          <div className="popup__container">
             <img
               className="popup__icon"
               src={unsuccessIcon}
