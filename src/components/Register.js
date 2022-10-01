@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-const Register = ({ handleRegister, isOpen, onClose, isSuccess, isLoading }) => {
+const Register = ({ handleRegister, isLoading }) => {
  
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -20,28 +20,24 @@ const Register = ({ handleRegister, isOpen, onClose, isSuccess, isLoading }) => 
             <form className='auth__form' onSubmit={handleSubmit}>
                 <div className='auth__wrapper'>
                     <h3 className='auth__title'>Sign up</h3>
-                    <label className='auth__input'>
                         <input
                             type='email'
                             name='email'
                             id='email'
-                            className='auth__email'
+                            className='auth__input'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                    </label>
-                    <label className='auth__input'>
                         <input
                             type='password'
                             name='password'
                             id='password'
-                            className='auth__password'
+                            className='auth__input'
                             placeholder='Password'
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                    </label>
                 </div>
                 <button type='submit' className='auth__button'>
                    {isLoading ? 'Logging In...' : 'Log in'}

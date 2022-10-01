@@ -23,3 +23,10 @@
     margin: 123px auto;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .popup {
+    max-width: 280px;
+    margin: 123px auto;
+  }
+}

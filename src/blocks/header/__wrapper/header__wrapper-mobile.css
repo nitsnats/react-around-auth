@@ -1,0 +1,9 @@
+.header__wrapper-mobile {
+    display: flex;
+}
+
+@media (min-width: 500px) {
+    .header__wrapper-mobile {
+        display: none;
+    }  
+}

@@ -65,7 +65,7 @@ function App() {
       auth.checkToken(jwt)
         .then((res) => {
           if (res.data._id) {
-            setIsLoggedIn(true);
+            setIsLoggedIn(false);
             setUserData({ email: res.data.email });
             history.push('/main');
           }
@@ -233,19 +233,22 @@ function App() {
       .register(email, password)
       .then((res) => {
         setIsInfoTooltipOpen(true);
-        if (res.data._id) {
+        if (res._id) {
           setIsSuccess('successful');
-          setTimeout(() => {
+          // setTimeout(() => {
+            
+            setIsInfoTooltipOpen(true);
             history.push('/signin');
-            setIsInfoTooltipOpen(false);
-          }, 3000)
+          // }, 3000)
         } else {
           setIsSuccess('unsuccessful');
+          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
         console.log(err);
         setIsSuccess('unsuccessful');
+        setIsInfoTooltipOpen(true);
       })
       .finally(() => {
         setIsInfoTooltipOpen(true);
@@ -262,11 +265,13 @@ function App() {
           setIsLoggedIn(true);
           setUserData({ email });
           localStorage.setItem('jwt', res.token);
-          history.push('/main');
+          history.push('/');
+        } else {
+          setIsSuccess('unsuccessful');
+          setIsInfoTooltipOpen(true); 
         }
       })
       .catch((err) => {
-        console.log(err);
         setIsSuccess('unsuccessful');
         setIsInfoTooltipOpen(true);
       })
@@ -276,25 +281,24 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    if (isLoggedIn) {
-      return
-    }
+  // React.useEffect(() => {
+  //   if (isLoggedIn) {
+  //     return
+  //   }
     
-      api.getUserInfo()
-      .then(res => {
-        setCurrentUser(res);
-      })
-        .catch(() => console.log("something went wrong"));
+  //     api.getUserInfo()
+  //     .then(res => {
+  //       setCurrentUser(res);
+  //     })
+  //       .catch(() => console.log("something went wrong"));
     
-    api
-      .getCardsList()
-      .then(data => {
-        setCards(data);
-      })
-      .catch(() => console.log("something went wrong"));
-  }, [isLoggedIn]);
-
+  //   api
+  //     .getCardsList()
+  //     .then(data => {
+  //       setCards(data);
+  //     })
+  //     .catch(() => console.log("something went wrong"));
+  // }, [isLoggedIn]);
   
   
   return (

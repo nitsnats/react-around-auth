@@ -1,6 +1,6 @@
 .header__image {
   max-width: 100%;
-  margin: 45px auto 41px;
+  margin: 45px 0 41px;
 }
 
 @media screen and (max-width: 320px) {
@@ -10,5 +10,7 @@
     width: 126px;
     height: 24px;
     margin: 28px 0 0 0;
+    order: 1;
   }
 }
+

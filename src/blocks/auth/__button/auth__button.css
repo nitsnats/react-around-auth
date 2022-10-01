@@ -11,8 +11,3 @@
     transition: .3s linear;
     display: block;
 }
-
-.auth__button:hover {
-    transition: .3s linear;
-    transform: scale(1.1);
-}
