@@ -42,7 +42,7 @@ const Register = ({ handleRegister, isLoading }) => {
                         />
                 </div>
                 <button type='submit' className='auth__button'>
-                   {isLoading ? 'Logging In...' : 'Log in'}
+                   {isLoading ? 'Signning up...' : 'Sign up'}
                 </button>
                     <p className='auth__text'>
                         Already a memeber? {' '}
