@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../images/logo.svg";
 
-const Header = ({ email, isLoggedIn, SignOut }) => {
+const Header = ({ email, isLoggedIn, signOut }) => {
   const [isShowHeader, setIsShowHeader] = useState(false);
 
   return (
     <header className="header">
       {isShowHeader && (
         <div className="header__user-details-mobile">
-          <HeaderMenu email={email} SignOut={SignOut} isLoggedIn={isLoggedIn} />
+          <HeaderMenu email={email} signOut={signOut} isLoggedIn={isLoggedIn} />
         </div>
       )}
       <div className="header__container">
@@ -23,7 +23,7 @@ const Header = ({ email, isLoggedIn, SignOut }) => {
           <div className="header__user-details">
             <HeaderMenu
               email={email}
-              SignOut={SignOut}
+              signOut={signOut}
               isLoggedIn={isLoggedIn}
             />
           </div>
@@ -34,7 +34,9 @@ const Header = ({ email, isLoggedIn, SignOut }) => {
   );
 };
 
-function HeaderMenu({ email, SignOut, isLoggedIn }) {
+export default Header;
+
+function HeaderMenu({ email, signOut, isLoggedIn }) {
   const location = useLocation();
 
   return (
@@ -42,7 +44,7 @@ function HeaderMenu({ email, SignOut, isLoggedIn }) {
       {isLoggedIn ? (
         <>
           <p className="header__email">{email}</p>
-          <button className="header__text" onClick={SignOut}>
+          <button className="header__text" onClick={signOut}>
             Log Out
           </button>
         </>
@@ -57,7 +59,3 @@ function HeaderMenu({ email, SignOut, isLoggedIn }) {
     </div>
   );
 }
-
-
-export default Header;
-

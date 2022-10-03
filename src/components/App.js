@@ -37,7 +37,7 @@ function App() {
   const [userData, setUserData] = useState({});
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const [isSuccess, setIsSuccess] = useState(true);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   //const [email, setEmail] = useState('');
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function App() {
     }
   }, [history]);
 
-  function SignOut() {
+  function signOut() {
     setIsLoggedIn(false);
     localStorage.removeItem("jwt");
     setUserData("");
@@ -233,23 +233,18 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        setIsInfoTooltipOpen(true);
         if (res._id) {
           setIsSuccess("successful");
           // setTimeout(() => {
-
-          setIsInfoTooltipOpen(true);
           history.push("/signin");
           // }, 3000)
         } else {
           setIsSuccess("unsuccessful");
-          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
         console.log(err);
         setIsSuccess("unsuccessful");
-        setIsInfoTooltipOpen(true);
       })
       .finally(() => {
         setIsInfoTooltipOpen(true);
@@ -282,32 +277,13 @@ function App() {
       });
   }
 
-  // React.useEffect(() => {
-  //   if (isLoggedIn) {
-  //     return
-  //   }
-
-  //     api.getUserInfo()
-  //     .then(res => {
-  //       setCurrentUser(res);
-  //     })
-  //       .catch(() => console.log("something went wrong"));
-
-  //   api
-  //     .getCardsList()
-  //     .then(data => {
-  //       setCards(data);
-  //     })
-  //     .catch(() => console.log("something went wrong"));
-  // }, [isLoggedIn]);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
         <Header
           isLoggedIn={isLoggedIn}
           email={userData.email}
-          SignOut={SignOut}
+          signOut={signOut}
           path="/signup"
         />
         <Switch>

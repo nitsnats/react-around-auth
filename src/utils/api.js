@@ -7,16 +7,20 @@ class Api {
   _checkResponse = (res) =>
     res.ok ? res.json() : Promise.reject(res.statusText);
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
+_request(url, options) {
+    return fetch(url, options).then(this._checkResponse)
+  }  
 
+// _request(url, options, data) {
+//     return fetch(url, options, data).then(this._checkResponse)
+//   }  
+
+  getInitialCards() {
+    return this._request("/cards", "GET");
+  }
+  
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
+    return this._request("/users/me", "GET");
   }
 
   createCard(data) {

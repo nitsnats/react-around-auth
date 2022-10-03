@@ -9,20 +9,10 @@ export const register = (email, password) => {
     },
     body: JSON.stringify({email, password })
   })
-  .then((response) => {
-    if (response.status === 201) {
-      return response.json();
-    }
-    if (response.status === 400) {
-      throw new Error(
-         'One or more of the fields were not provided'
-     )
-  }
-  })
+  .then(checkResponse)
   .then((res) => {
     return res;
   })
-  .catch((err) => err);
 };
 
 export const login = (email, password) => {
@@ -34,23 +24,12 @@ export const login = (email, password) => {
     },
     body: JSON.stringify({email, password}),
   })
-  .then((response) => {
-    if (response.status === 200) {
-      return response.json();
-    }
-    if (response.status === 400) {
-      throw new Error('One or more of the fields were not provided');
-    }
-    if (response.status === 401) {
-      throw new Error('The user with the specified email not found ');
-    }
-  })
+  .then(checkResponse)
   .then((data) => {
-      localStorage.setItem('jwt', data.jwt);
+      localStorage.setItem('jwt', data.token);
       localStorage.setItem('email', email);
       return data;
   })
-  .catch((err) => err)
 }
 
 export const checkToken = (jwt) => {
@@ -62,16 +41,9 @@ export const checkToken = (jwt) => {
       'Authorization': `Bearer ${jwt}`,
     }
   })
-  .then((response) => {
-    if (response.status === 200 || response.status === 201) {
-      return response.json();
-    }
-    if (response.status === 400) {
-      throw new Error('Token not provided or provided in the wrong format');
-    }
-    if (response.status === 401) {
-      throw new Error('The provided token is invalid');
-    }
-  })
-  .catch((err) => err)
+  .then(checkResponse)  
 };
+
+ const checkResponse = (res) =>
+    res.ok ? res.json() : Promise.reject(res.statusText);
+  

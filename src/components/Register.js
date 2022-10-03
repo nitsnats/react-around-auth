@@ -27,6 +27,7 @@ const Register = ({ handleRegister, isLoading }) => {
                             className='auth__input'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             required
                         />
                         <input
@@ -36,6 +37,7 @@ const Register = ({ handleRegister, isLoading }) => {
                             className='auth__input'
                             placeholder='Password'
                             onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             required
                         />
                 </div>
