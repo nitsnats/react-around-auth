@@ -233,14 +233,12 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        if (res._id) {
-          setIsSuccess("successful");
-          // setTimeout(() => {
-          history.push("/signin");
-          // }, 3000)
-        } else {
-          setIsSuccess("unsuccessful");
-        }
+        setIsSuccess("successful");
+        history.push("/signin");
+
+        setTimeout(() => {
+          handleLogin({ email, password });
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
@@ -261,7 +259,8 @@ function App() {
           setIsLoggedIn(true);
           setUserData({ email });
           localStorage.setItem("jwt", res.token);
-          history.push("/");
+          history.push("/main");
+          setIsInfoTooltipOpen(false);
         } else {
           setIsSuccess("unsuccessful");
           setIsInfoTooltipOpen(true);
