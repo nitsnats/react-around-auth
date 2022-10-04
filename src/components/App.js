@@ -65,7 +65,7 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           if (res.data._id) {
-            setIsLoggedIn(false);
+            setIsLoggedIn(true);
             setUserData({ email: res.data.email });
             history.push("/main");
           }
@@ -314,7 +314,7 @@ function App() {
           </Route>
 
           <Route>
-            {isLoggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
 
